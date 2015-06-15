@@ -18,27 +18,36 @@ Once the project moves into development, the press release can be used as a touc
  
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
+  Real time data visualization.
 
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  Anyone who appreciates real-time data and information through visuals.
 
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  This project will take any given real-time data, and show you live updates on a visualization tool which you can filter by any given criteria.
 
 ## Problem ##
   > Describe the problem your product solves.
+  It's difficult to see what the data suggests just by looking at numbers and words. Visual tools solve this problem and can create meaning out of data.
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
+  You can throw any complex or large amount of datasets that match the format, and it will give you a pretty visualization.
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
+  If you want to impress your boss without opening Excel to create a generic chart, try this tool.
 
 ## How to Get Started ##
   > Describe how easy it is to get started.
+  Throw your data in a JSON format into my tool. A stream of data will create a real time visualization of the data.
 
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  This was great, we had real time streaming data and didn't know where to go to create a simple visualization.
 
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
+  Try it with our sample fake real-time generated data. You will love it.
