@@ -1,4 +1,12 @@
-angular.module('vizu',[])
+angular.module('vizu',['ui.router'])
+  .config(function($stateProvider){
+    $stateProvider
+      .state('data',{
+        url:'/data',
+        template: '{{something}}',
+        controller: 'vizuCtrl'
+      });
+  })
   .controller('vizuCtrl',function($scope){
     $scope.something = 'some data';
   })
@@ -6,6 +14,6 @@ angular.module('vizu',[])
     return {
       restrict: 'E',
       controller: 'vizuCtrl',
-      template: '{{something}}'
+      template: '{{something}} <a href="/data">click</a>'
     };
   });
