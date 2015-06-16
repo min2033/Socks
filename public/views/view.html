@@ -1,5 +1,5 @@
 <div id="container">
-  <h1>Vizu</h2>
+  <input class="searchbox" ng-model="searchText">
   <form name="dates" ng-submit="sendForm()">
     <input type="text" ng-model="startDate" placeholder="2012-01-01">
     <input type="text" ng-model="endDate" placeholder="2012-01-08">
@@ -8,7 +8,6 @@
   </form>
 
   <hr>
-  <span>Search:</span> <input class="searchbox" ng-model="searchText">
 
   <svg id="svgVisualize" width="1000" height="1000"></svg>
 

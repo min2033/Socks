@@ -1,10 +1,13 @@
 var express = require('express');
 var fs = require('fs');
+var path = require('path');
 var request = require('request');
 var bodyParser = require('body-parser');
 var app = express();
 
-app.use(express.static('public'));
+// app.use(express.static(path.join(__dirname, 'public')));
+app.use('/',express.static(path.join(__dirname, '/public')));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -40,9 +43,12 @@ app.post('/data',function(req,res){
 
 
 
-app.get('*', function (req, res) {
-    res.sendFile(__dirname + '/public/index.html');
-});
+// app.get('/*', function (req, res) {
+//   res.end();
+//     // res.sendFile(__dirname + '/public/');
+//     //res.sendFile(__dirname + '/public/index.html');
+//     // res.sendFile();
+// });
 
 
 

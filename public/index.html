@@ -3,6 +3,11 @@
 <html ng-app="vizu">
 
   <head>
+    <base href="/" />
+    <link rel="stylesheet" type="text/css" href="/styles/styles.css" />
+  </head>
+
+  <body>
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/d3/d3.min.js"></script>
@@ -11,10 +16,7 @@
     <script src="services/requests.js"></script>
     <script src="controller/vizuCtrl.js"></script>
     <script src="views/view.js"></script>
-  </head>
-
-
-  <body>
+    <h2>Socks</h2>
     <div ui-view></div>
   </body>
 
