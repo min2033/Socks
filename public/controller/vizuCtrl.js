@@ -13,7 +13,7 @@ angular.module('vizu.ctrl',[])
     // };
 
     $scope.sendForm = function(){
-      reqs.getData({startDate:$scope.startDate,endDate:$scope.endDate})
+      reqs.getData({startDate:$scope.startDate,endDate:$scope.endDate,stocks:$scope.stocks})
         .then(function(res){
           var data = res.data;
           for (var i = 0; i < data.length; i++) {
@@ -28,7 +28,7 @@ angular.module('vizu.ctrl',[])
 
     $scope.render = function(data){
       var vis = d3.select("#svgVisualize");
-      console.log(data);
+      vis.selectAll('g').remove();
 
       var xRange = d3.scale.linear()
                     .range([40,800])
