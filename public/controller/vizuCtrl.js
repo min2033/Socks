@@ -6,11 +6,6 @@ angular.module('vizu.ctrl',[])
     var volumeAdj = 1000000;
     var priceAdj = 1;
 
-    // $scope.initialize = function(){
-    //   reqs.getData().then(function(res){
-    //     $scope.render(res.data);
-    //   })
-    // };
 
     $scope.sendForm = function(){
       reqs.getData({startDate:$scope.startDate,endDate:$scope.endDate,stocks:$scope.stocks})
@@ -26,7 +21,31 @@ angular.module('vizu.ctrl',[])
         });
     };
 
+    $scope.getDetail = function(){
+      reqs.getData({startDate:$scope.startDate,endDate:$scope.endDate,stocks:$scope.searchText})
+        .then(function(res){
+          var data = res.data;
+          $scope.renderDetail(data);
+        });
+    };
+
+    $scope.renderDetail = function(data){
+      // remove any svg tags.
+      $('svg').remove();
+      console.log(data);
+      // get data,
+        // make something out of it
+        // append to dom.
+
+    };
+
     $scope.render = function(data){
+      var node = $('svg');
+      if(!node.length){ // if node doesn't exist
+        var svgNode = $('<svg id="svgVisualize" width="1000" height="1000" style="margin:auto auto"></svg>');
+        $('#container').append(svgNode);
+      }
+
       var vis = d3.select("#svgVisualize");
       vis.selectAll('g').remove();
 
@@ -69,62 +88,12 @@ angular.module('vizu.ctrl',[])
       var xAxis = d3.svg.axis().scale(xRange);
       var yAxis = d3.svg.axis().scale(yRange).orient("left");
 
-      // vis.selectAll('g').remove();
 
       vis.append('svg:g').call(xAxis).attr("transform","translate(0,500)")
         .append('text').attr("transform","translate(400,50)").text('Days');
       vis.append('svg:g').call(yAxis).attr("transform","translate(40,0)")
         .append('text').attr("transform","translate(0,20)").text('Price');
 
-      // var elem = d3.select("#svgVisualize").selectAll('g').data(data);
-
-      // var elemEnter = elem.enter().append('g');
-
-      // var circle = elemEnter.append("circle")
-
-              // .style('fill',function(d){return "hsl(" + d.Close + ",100%,50%)";});
-
-
     };
 
-    // $scope.reDraw = function(data){
-    //   var xRange = d3.scale.linear()
-    //                 .range([40,800])
-    //                 .domain([d3.min(data,function(d){
-    //                   return d.Close;
-    //                 }), d3.max(data,function(d){
-    //                   return d.Close;
-    //                 })]);
-
-    //   var yRange = d3.scale.linear()
-    //                 .range([40,500])
-    //                 .domain([d3.max(data,function(d){
-    //                   return d.Volume/volumeAdj;
-    //                 }), d3.min(data,function(d){
-    //                   return d.Volume/volumeAdj;
-    //                 })]);
-
-    //   var circle = d3.selectAll('circle')
-    //     .data($scope.data)
-    //     .transition()
-    //     .duration(750)
-    //     .attr("r", function(d){return (d.Volume/volumeAdj*10);} )
-    //     .attr('cx',function(d){return xRange(d.Close);})
-    //     .attr('cy',function(d){return yRange(d.Volume/volumeAdj);});
-
-    //   var text = d3.selectAll('text')
-    //     .data($scope.data)
-    //     .transition()
-    //     .duration(750)
-    //     .attr("dx", function(d){return xRange(d.Close)-(d.Volume/volumeAdj);})
-    //     .attr('dy', function(d){return yRange(d.Volume/volumeAdj);})
-    //     .text(function(d){return d.Symbol});
-    // };
-
-    // $scope.initialize();
-    // setInterval($scope.getData,2000);
-
-    // $scope.$watch('data',function(){
-    //   $scope.render($scope.data);
-    // },true);
   });

@@ -17,14 +17,18 @@ app.post('/data',function(req,res){
   var url = 'http://query.yahooapis.com/v1/public/yql';
   var startDate = req.body.startDate || '2012-01-01';
   var endDate = req.body.endDate || '2012-01-08';
-  console.log(req.body.stocks);
   // split stocks by commas
-  var stocks = req.body.stocks.split(",");
+  var stocks;
+  if(!req.body.stocks){
+    stocks = "MSFT,AAPL,GE".split(",");
+  }else{
+    stocks = req.body.stocks.split(",");
+  }
   for (var i = 0; i < stocks.length; i++) {
     stocks[i] = '"'+stocks[i]+'"';
   };
   stocks = stocks.join(",");
-  console.log(stocks);
+
     // add doublequote before and after each
     // rejoin them with comma
   // var stocks = '"MSFT","TWTR","GE","CSCO"'
@@ -32,10 +36,17 @@ app.post('/data',function(req,res){
   var fullUrl = url + '/?q=' + data + "&env=http%3A%2F%2Fdatatables.org%2Falltables.env&format=json";
 
   request(fullUrl,function(err,response,body){
-    if(err) console.log(err);
+    if(err) {
+      console.log(err);
+      res.status(404).send('Error retrieving data');
+    }
     else{
       var data = JSON.parse(body);
-      res.send(data.query.results.quote);
+      if(!data.query.results){ // if error
+        res.status(404).send('Error retrieving data');
+      }else{
+        res.send(data.query.results.quote);
+      }
     }
   });
 });
