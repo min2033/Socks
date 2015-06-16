@@ -1,9 +1,23 @@
-input{
-  width: 140px;
-  display: inline-block;
-  font-size: 15px;
-  padding: 5px;
-  margin-bottom: 5px;
+.searchbox{
+  width:150px;
+}
+h2, input, body{
+  font-family: 'century gothic';
+}
+h2{
+  text-align:center;
+}
+form{
+  text-align:center;
+}
+svg{
+  display:block;
+  margin:auto;
+}
+img{
+  width:50px;
+  height:50px;
+  display:inline;
 }
 body{
 

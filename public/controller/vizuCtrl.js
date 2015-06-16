@@ -1,8 +1,8 @@
 angular.module('vizu.ctrl',[])
   .controller('vizuCtrl',function($scope,reqs){
     $scope.data = [];
-    $scope.startDate = "2012-01-01";
-    $scope.endDate = "2012-01-08";
+    $scope.startDate = "2015-01-01";
+    $scope.endDate = "2015-01-15";
     var volumeAdj = 1000000;
     var priceAdj = 1;
 
@@ -71,8 +71,10 @@ angular.module('vizu.ctrl',[])
 
       // vis.selectAll('g').remove();
 
-      vis.append('svg:g').call(xAxis).attr("transform","translate(0,500)");
-      vis.append('svg:g').call(yAxis).attr("transform","translate(40,0)");
+      vis.append('svg:g').call(xAxis).attr("transform","translate(0,500)")
+        .append('text').attr("transform","translate(400,50)").text('Days');
+      vis.append('svg:g').call(yAxis).attr("transform","translate(40,0)")
+        .append('text').attr("transform","translate(0,20)").text('Price');
 
       // var elem = d3.select("#svgVisualize").selectAll('g').data(data);
 

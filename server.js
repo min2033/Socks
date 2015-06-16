@@ -43,15 +43,6 @@ app.post('/data',function(req,res){
 
 
 
-// app.get('/*', function (req, res) {
-//   res.end();
-//     // res.sendFile(__dirname + '/public/');
-//     //res.sendFile(__dirname + '/public/index.html');
-//     // res.sendFile();
-// });
-
-
-
 app.listen(8080,function(err){
   console.log('app listening on... 8080');
 

@@ -1,15 +1,17 @@
-<div id="container">
-  <input class="searchbox" ng-model="searchText">
-  <form name="dates" ng-submit="sendForm()">
-    <input type="text" ng-model="startDate" placeholder="2012-01-01">
-    <input type="text" ng-model="endDate" placeholder="2012-01-08">
-    <input type="text" ng-model="stocks" placeholder="MSFT,CSCO,GE">
-    <button type="submit"></button>
+<div class="container-fluid" id="container">
+  <form class="form-inline">
+    
   </form>
+  <div class="form-group">
+    <form class="form-inline" name="dates" ng-submit="sendForm()">
+      <input class="form-control" type="text" ng-model="startDate" placeholder="2012-01-01">
+      <input class="form-control" type="text" ng-model="endDate" placeholder="2012-01-08">
+      <input class="form-control" type="text" ng-model="stocks" placeholder="MSFT,CSCO,GE">
+      <input class="form-control" class="searchbox" ng-model="searchText" placeholder="MSFT">
+      <button type="submit" class="btn btn-success">See</button>
+    </form>
+  </div>
 
-  <hr>
-
-  <svg id="svgVisualize" width="1000" height="1000"></svg>
-
-
+  
+  <svg id="svgVisualize" width="1000" height="1000" style="margin:auto auto"></svg>
 </div>
