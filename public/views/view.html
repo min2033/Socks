@@ -1,7 +1,4 @@
 <div class="container-fluid" id="container">
-  <form class="form-inline">
-    
-  </form>
     <div class="form-group">
       <form class="form-inline mainForm" name="dates" ng-submit="sendForm()">
         <input class="form-control" type="text" ng-model="startDate" placeholder="2012-01-01">
@@ -14,9 +11,20 @@
         <button type="submit" class="btn btn-info">Detail</button>
       </form>
     </div>
-
   </div>
-
-  
   <svg id="svgVisualize" width="1000" height="1000" style="margin:auto auto"></svg>
+  <div class="cards">
+    <div ng-show="showDetail" class="card fx-fade-down" ng-repeat="detail in details | orderBy: 'Date'">
+      <ul>
+        <li>{{detail.Date}}</li>
+        <li>{{detail.Symbol}}</li>
+        <li>Open: {{detail.Open}}</li>
+        <li>Close: {{detail.Close}}</li>
+        <li>Adj Close: {{detail.Adj_Close}}</li>
+        <li>High: {{detail.High}}</li>
+        <li>Low: {{detail.Low}}</li>
+        <li>Volume: {{detail.Volume}}</li>
+      </ul>
+    </div>
+  </div>
 </div>

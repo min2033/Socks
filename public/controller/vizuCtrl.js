@@ -1,6 +1,8 @@
-angular.module('vizu.ctrl',[])
+angular.module('vizu.ctrl',['ngFx','ngAnimate'])
   .controller('vizuCtrl',function($scope,reqs){
     $scope.data = [];
+    $scope.details = [];
+    $scope.showDetail = false;
     $scope.startDate = "2015-01-01";
     $scope.endDate = "2015-01-15";
     var volumeAdj = 1000000;
@@ -8,6 +10,7 @@ angular.module('vizu.ctrl',[])
 
 
     $scope.sendForm = function(){
+      $scope.showDetail = false;
       reqs.getData({startDate:$scope.startDate,endDate:$scope.endDate,stocks:$scope.stocks})
         .then(function(res){
           var data = res.data;
@@ -29,14 +32,15 @@ angular.module('vizu.ctrl',[])
         });
     };
 
-    $scope.renderDetail = function(data){
+    $scope.renderDetail = function(data,$animate){
       // remove any svg tags.
       $('svg').remove();
-      console.log(data);
+      $scope.details = data;
+      $scope.showDetail = true;
+      // $animate.animate('fx-fade-down');
       // get data,
         // make something out of it
         // append to dom.
-
     };
 
     $scope.render = function(data){
@@ -72,7 +76,7 @@ angular.module('vizu.ctrl',[])
               .attr('r',0)
               .transition()
               .duration(200)
-              .attr("r", function(d){return d.Volume/5;})
+              .attr("r", function(d){return d.Volume/3;})
               .attr('cx',function(d){return xRange(d.Date);})
               .attr('cy',function(d){return yRange(d.Close);})
               .attr("stroke","black")
@@ -80,6 +84,7 @@ angular.module('vizu.ctrl',[])
               .style('fill',function(d){return "hsl(" + d.Close*10 + ",100%,50%)";});
 
       var text = gs.append("text")
+              .attr("text-anchor", "middle")
               .attr("dx", function(d){return xRange(d.Date);})
               .attr('dy', function(d){return yRange(d.Close);})
               .text(function(d){return d.Symbol});

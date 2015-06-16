@@ -16,6 +16,8 @@
   "dependencies": {
     "angular-ui-router": "~0.2.15",
     "angular": "~1.4.0",
-    "d3": "~3.5.5"
+    "d3": "~3.5.5",
+    "ngFx": "~1.1.0",
+    "angular-animate": "~1.4.1"
   }
 }

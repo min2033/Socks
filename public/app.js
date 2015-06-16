@@ -1,7 +1,9 @@
 angular.module('vizu',[
   'ui.router',
   'vizu.ctrl',
-  'vizu.reqs'
+  'vizu.reqs',
+  'ngAnimate',
+  'ngFx'
   ])
   .config(function($stateProvider,$urlRouterProvider){
     $urlRouterProvider.otherwise('/');
