@@ -1,106 +1,128 @@
 angular.module('vizu.ctrl',[])
   .controller('vizuCtrl',function($scope,reqs){
     $scope.data = [];
+    $scope.startDate = "2012-01-01";
+    $scope.endDate = "2012-01-08";
+    var volumeAdj = 1000000;
+    var priceAdj = 1;
 
-    $scope.getData = function(){
-      reqs.getData().then(function(res){
-        $scope.data = res.data;
-      });
-    };
+    // $scope.initialize = function(){
+    //   reqs.getData().then(function(res){
+    //     $scope.render(res.data);
+    //   })
+    // };
 
-    $scope.initialize = function(){
-      reqs.getData().then(function(res){
-        $scope.render(res.data);
-      })
+    $scope.sendForm = function(){
+      reqs.getData({startDate:$scope.startDate,endDate:$scope.endDate})
+        .then(function(res){
+          var data = res.data;
+          for (var i = 0; i < data.length; i++) {
+            data[i].Volume = data[i].Volume / volumeAdj;
+            data[i].Close = data[i].Close / priceAdj;
+            data[i].Date = parseInt(data[i].Date.slice(-2));
+          };
+          $scope.data = data;
+          $scope.render(data);
+        });
     };
 
     $scope.render = function(data){
       var vis = d3.select("#svgVisualize");
+      console.log(data);
 
       var xRange = d3.scale.linear()
                     .range([40,800])
                     .domain([d3.min(data,function(d){
-                      return d.price;
+                      return d.Date;
                     }), d3.max(data,function(d){
-                      return d.price;
+                      return d.Date;
                     })]);
 
       var yRange = d3.scale.linear()
                     .range([40,500])
                     .domain([d3.max(data,function(d){
-                      return d.volume;
+                      return d.Close;
                     }), d3.min(data,function(d){
-                      return d.volume;
+                      return d.Close;
                     })]);
+
+      var gs = vis.selectAll('g').data(data).enter().append('g');
+
+      var circle = gs
+              .append('circle')
+              .attr('r',0)
+              .transition()
+              .duration(200)
+              .attr("r", function(d){return d.Volume/5;})
+              .attr('cx',function(d){return xRange(d.Date);})
+              .attr('cy',function(d){return yRange(d.Close);})
+              .attr("stroke","black")
+              .attr("fill", "white")
+              .style('fill',function(d){return "hsl(" + d.Close*10 + ",100%,50%)";});
+
+      var text = gs.append("text")
+              .attr("dx", function(d){return xRange(d.Date);})
+              .attr('dy', function(d){return yRange(d.Close);})
+              .text(function(d){return d.Symbol});
+
 
       var xAxis = d3.svg.axis().scale(xRange);
       var yAxis = d3.svg.axis().scale(yRange).orient("left");
 
-      vis.selectAll('g').remove();
+      // vis.selectAll('g').remove();
 
       vis.append('svg:g').call(xAxis).attr("transform","translate(0,500)");
       vis.append('svg:g').call(yAxis).attr("transform","translate(40,0)");
 
-      var elem = vis.selectAll('g').data(data);
+      // var elem = d3.select("#svgVisualize").selectAll('g').data(data);
 
-      var elemEnter = elem.enter().append('g');
+      // var elemEnter = elem.enter().append('g');
+
+      // var circle = elemEnter.append("circle")
+
+              // .style('fill',function(d){return "hsl(" + d.Close + ",100%,50%)";});
 
 
-      var circle = elemEnter.append("circle")
-              .attr('r',0)
-              .transition()
-              .duration(200)
-              .attr("r", function(d){return (d.volume/3);} )
-              .attr('cx',function(d){return xRange(d.price);})
-              .attr('cy',function(d){return yRange(d.volume);})
-              .attr("stroke","black")
-              .attr("fill", "white")
-              .style('fill',function(d){return "hsl(" + d.price + ",100%,50%)";});
-
-      elemEnter.append("text")
-              .attr("dx", function(d){return xRange(d.price)-(d.volume/2);})
-              .attr('dy', function(d){return yRange(d.volume);})
-              .text(function(d){return d.name});
     };
 
-    $scope.reDraw = function(data){
-      var xRange = d3.scale.linear()
-                    .range([40,800])
-                    .domain([d3.min(data,function(d){
-                      return d.price;
-                    }), d3.max(data,function(d){
-                      return d.price;
-                    })]);
+    // $scope.reDraw = function(data){
+    //   var xRange = d3.scale.linear()
+    //                 .range([40,800])
+    //                 .domain([d3.min(data,function(d){
+    //                   return d.Close;
+    //                 }), d3.max(data,function(d){
+    //                   return d.Close;
+    //                 })]);
 
-      var yRange = d3.scale.linear()
-                    .range([40,500])
-                    .domain([d3.max(data,function(d){
-                      return d.volume;
-                    }), d3.min(data,function(d){
-                      return d.volume;
-                    })]);
+    //   var yRange = d3.scale.linear()
+    //                 .range([40,500])
+    //                 .domain([d3.max(data,function(d){
+    //                   return d.Volume/volumeAdj;
+    //                 }), d3.min(data,function(d){
+    //                   return d.Volume/volumeAdj;
+    //                 })]);
 
-      var circle = d3.selectAll('circle')
-        .data($scope.data)
-        .transition()
-        .duration(750)
-        .attr("r", function(d){return (d.volume/3);} )
-        .attr('cx',function(d){return xRange(d.price);})
-        .attr('cy',function(d){return yRange(d.volume);});
+    //   var circle = d3.selectAll('circle')
+    //     .data($scope.data)
+    //     .transition()
+    //     .duration(750)
+    //     .attr("r", function(d){return (d.Volume/volumeAdj*10);} )
+    //     .attr('cx',function(d){return xRange(d.Close);})
+    //     .attr('cy',function(d){return yRange(d.Volume/volumeAdj);});
 
-      var text = d3.selectAll('text')
-        .data($scope.data)
-        .transition()
-        .duration(750)
-        .attr("dx", function(d){return xRange(d.price)-(d.volume/2);})
-        .attr('dy', function(d){return yRange(d.volume);})
-        .text(function(d){return d.name});
-    };
+    //   var text = d3.selectAll('text')
+    //     .data($scope.data)
+    //     .transition()
+    //     .duration(750)
+    //     .attr("dx", function(d){return xRange(d.Close)-(d.Volume/volumeAdj);})
+    //     .attr('dy', function(d){return yRange(d.Volume/volumeAdj);})
+    //     .text(function(d){return d.Symbol});
+    // };
 
-    $scope.initialize();
-    setInterval($scope.getData,2000);
+    // $scope.initialize();
+    // setInterval($scope.getData,2000);
 
-    $scope.$watch('data',function(){
-      $scope.reDraw($scope.data);
-    },true);
+    // $scope.$watch('data',function(){
+    //   $scope.render($scope.data);
+    // },true);
   });

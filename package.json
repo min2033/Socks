@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/mikemsrk/2015-05-solo",
   "dependencies": {
-    "express": "^4.12.4"
+    "body-parser": "^1.13.0",
+    "express": "^4.12.4",
+    "request": "^2.57.0"
   }
 }

@@ -1,10 +1,11 @@
 angular.module('vizu.reqs',[])
   .factory('reqs',function($http){
 
-    var getData = function(){
+    var getData = function(data){
       return $http({
-        method: 'GET',
-        url: '/data'
+        method: 'POST',
+        url: '/data',
+        data: data
       });
     };
 
