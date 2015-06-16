@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 
-<html>
+<html ng-app="vizu">
 
   <head>
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/d3/d3.min.js"></script>
+
     <script src="app.js"></script>
+    <script src="services/requests.js"></script>
+    <script src="controller/vizuCtrl.js"></script>
+    <script src="views/view.js"></script>
   </head>
 
 
-  <body ng-app="vizu">
-    <vizu-view></vizu-view>
+  <body>
+    <div ui-view></div>
   </body>
 
 </html>

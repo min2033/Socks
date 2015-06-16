@@ -1,19 +1,15 @@
-angular.module('vizu',['ui.router'])
-  .config(function($stateProvider){
+angular.module('vizu',[
+  'ui.router',
+  'vizu.ctrl',
+  'vizu.reqs'
+  ])
+  .config(function($stateProvider,$urlRouterProvider){
+    $urlRouterProvider.otherwise('/');
+    
     $stateProvider
-      .state('data',{
-        url:'/data',
-        template: '{{something}}',
+      .state('/',{
+        url:'/',
+        templateUrl: 'views/view.html',
         controller: 'vizuCtrl'
       });
-  })
-  .controller('vizuCtrl',function($scope){
-    $scope.something = 'some data';
-  })
-  .directive('vizuView',function(){
-    return {
-      restrict: 'E',
-      controller: 'vizuCtrl',
-      template: '{{something}} <a href="/data">click</a>'
-    };
   });
