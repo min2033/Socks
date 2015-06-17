@@ -47,3 +47,10 @@ img{
   height:50px;
   display:inline;
 }
+.images img{
+  display:inline-block;
+}
+.images{
+  position:absolute;
+  right:5px;
+}
