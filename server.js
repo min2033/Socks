@@ -11,6 +11,12 @@ app.use('/',express.static(path.join(__dirname, '/public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.set('port',(process.env.PORT || 8080));
+
+app.get('/',function(req,res){
+  res.sendFile(__dirname + '/public/index.html');
+});
+
 // send back an array of REAL generated data.
 app.post('/data',function(req,res){
 
@@ -54,7 +60,7 @@ app.post('/data',function(req,res){
 
 
 
-app.listen(8080,function(err){
+app.listen(app.get('port'),function(err){
   console.log('app listening on... 8080');
 
 });
