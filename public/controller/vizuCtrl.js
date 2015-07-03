@@ -18,7 +18,7 @@ angular.module('vizu.ctrl',['ngFx','ngAnimate'])
             data[i].Volume = data[i].Volume / volumeAdj;
             data[i].Close = data[i].Close / priceAdj;
             data[i].Date = parseInt(data[i].Date.slice(-2));
-          };
+          }
           $scope.data = data;
           $scope.render(data);
         });
@@ -87,7 +87,7 @@ angular.module('vizu.ctrl',['ngFx','ngAnimate'])
               .attr("text-anchor", "middle")
               .attr("dx", function(d){return xRange(d.Date);})
               .attr('dy', function(d){return yRange(d.Close);})
-              .text(function(d){return d.Symbol});
+              .text(function(d){return d.Symbol;});
 
 
       var xAxis = d3.svg.axis().scale(xRange);
